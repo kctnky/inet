@@ -39,6 +39,8 @@ class INET_API Rx : public cSimpleModule, public IRx
         IStatistics *statistics = nullptr;
         uint64_t totalReceivedFrame = 0;
         uint64_t totalErroneousFrame = 0;
+        uint64_t saveReceivedFrame = 0;
+        uint64_t saveErroneousFrame = 0;
 
         MACAddress address;
         cMessage *endNavTimer = nullptr;
@@ -70,10 +72,13 @@ class INET_API Rx : public cSimpleModule, public IRx
         virtual void registerContention(IContention *contention) override;
         virtual uint64_t getTotalReceivedFrameCount();
         virtual uint64_t getTotalErroneousFrameCount();
+        virtual void saveTotalReceivedFrameCount();
+        virtual void saveTotalErroneousFrameCount();
+        virtual uint64_t getDeltaReceivedFrameCount();
+        virtual uint64_t getDeltaErroneousFrameCount();
 };
 
 } // namespace ieee80211
 } // namespace inet
 
 #endif
-

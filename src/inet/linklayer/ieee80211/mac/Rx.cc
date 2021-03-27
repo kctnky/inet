@@ -204,5 +204,25 @@ uint64_t Rx::getTotalErroneousFrameCount()
     return totalErroneousFrame;
 }
 
+void Rx::saveTotalReceivedFrameCount()
+{
+    saveReceivedFrame = totalReceivedFrame;
+}
+
+void Rx::saveTotalErroneousFrameCount()
+{
+    saveErroneousFrame = totalErroneousFrame;
+}
+
+uint64_t Rx::getDeltaReceivedFrameCount()
+{
+    return totalReceivedFrame - saveReceivedFrame;
+}
+
+uint64_t Rx::getDeltaErroneousFrameCount()
+{
+    return totalErroneousFrame - saveErroneousFrame;
+}
+
 } // namespace ieee80211
 } // namespace inet
