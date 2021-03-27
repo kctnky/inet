@@ -37,6 +37,8 @@ class INET_API Rx : public cSimpleModule, public IRx
     protected:
         std::vector<IContention *> contentions;
         IStatistics *statistics = nullptr;
+        uint64_t totalReceivedFrame = 0;
+        uint64_t totalErroneousFrame = 0;
 
         MACAddress address;
         cMessage *endNavTimer = nullptr;
@@ -66,6 +68,8 @@ class INET_API Rx : public cSimpleModule, public IRx
         virtual bool lowerFrameReceived(Ieee80211Frame *frame) override;
         virtual void frameTransmitted(simtime_t durationField) override;
         virtual void registerContention(IContention *contention) override;
+        virtual uint64_t getTotalReceivedFrameCount();
+        virtual uint64_t getTotalErroneousFrameCount();
 };
 
 } // namespace ieee80211

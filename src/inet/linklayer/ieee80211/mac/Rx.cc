@@ -72,7 +72,8 @@ bool Rx::lowerFrameReceived(Ieee80211Frame *frame)
         EV_INFO << "Received frame from PHY: " << frame << endl;
         if (frame->getReceiverAddress() != address)
             setOrExtendNav(frame->getDuration());
-//        statistics->frameReceived(frame);
+        totalReceivedFrame++;
+        // statistics->frameReceived(frame);
         return true;
     }
     else {
@@ -80,7 +81,8 @@ bool Rx::lowerFrameReceived(Ieee80211Frame *frame)
         delete frame;
         for (auto contention : contentions)
             contention->corruptedFrameReceived();
-//        statistics->erroneousFrameReceived();
+        totalErroneousFrame++;
+        // statistics->erroneousFrameReceived();
         return false;
     }
 }
@@ -190,6 +192,16 @@ void Rx::registerContention(IContention* contention)
 {
     contention->mediumStateChanged(mediumFree);
     contentions.push_back(contention);
+}
+
+uint64_t Rx::getTotalReceivedFrameCount()
+{
+    return totalReceivedFrame;
+}
+
+uint64_t Rx::getTotalErroneousFrameCount()
+{
+    return totalErroneousFrame;
 }
 
 } // namespace ieee80211
